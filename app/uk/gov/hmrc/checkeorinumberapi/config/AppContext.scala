@@ -19,6 +19,7 @@ package uk.gov.hmrc.checkeorinumberapi.config
 import javax.inject.{Inject, Singleton}
 import play.api.Configuration
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import scala.concurrent.duration._
 
 @Singleton
 class AppContext @Inject() (configuration: Configuration, servicesConfig: ServicesConfig) {
@@ -29,4 +30,10 @@ class AppContext @Inject() (configuration: Configuration, servicesConfig: Servic
   lazy val apiContext: String          = servicesConfig.getString("api.context")
   lazy val allowXiEoriNumbers: Boolean = servicesConfig.getBoolean("allowXiEoriNumbers")
   lazy val eisApiLimit: Int            = servicesConfig.getInt("eisApiLimit")
+
+  lazy val rateLimitEnabled: Boolean = servicesConfig.getBoolean("filters.rateLimit.enabled")
+  lazy val rateLimitBucketSize: Int  = servicesConfig.getInt("filters.rateLimit.bucketSize")
+  lazy val rateLimitPeriod: Duration = servicesConfig.getDuration("filters.rateLimit.period")
+
+  lazy val rateLimitRatePerSecond: Double = rateLimitBucketSize.toDouble / rateLimitPeriod.toSeconds
 }

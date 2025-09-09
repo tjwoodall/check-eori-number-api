@@ -23,6 +23,7 @@ import uk.gov.hmrc.checkeorinumberapi.config.AppContext
 import uk.gov.hmrc.checkeorinumberapi.connectors.CheckEoriNumberConnector
 import uk.gov.hmrc.play.bootstrap.backend.controller.BackendController
 import uk.gov.hmrc.checkeorinumberapi.models._
+import uk.gov.hmrc.checkeorinumberapi.filters.IpRateLimitFilters
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -30,7 +31,8 @@ import scala.concurrent.{ExecutionContext, Future}
 class EoriController @Inject() (
   connector: CheckEoriNumberConnector,
   cc: ControllerComponents,
-  appContext: AppContext
+  appContext: AppContext,
+  ipRateLimitFilter: IpRateLimitFilters
 )(implicit ec: ExecutionContext)
     extends BackendController(cc) {
 
@@ -38,7 +40,7 @@ class EoriController @Inject() (
   private val xiEoriRegex: String = "^XI[0-9]{12,15}$"
 
   def checkMultipleEoris: Action[JsValue] = {
-    Action.async(parse.json) { implicit request =>
+    (Action andThen ipRateLimitFilter).async(parse.json) { implicit request =>
       withJsonBody[CheckMultipleEoriNumbersRequest](cmr => {
         cmr.eoris match {
           case Nil                                                                            =>
