@@ -60,11 +60,6 @@ paths:
             schema:
               allOf:
               - $ref: '#/components/schemas/GBXIEORICheckerService'
-              - example:
-                  eoris:
-                  - GB123456789133
-                  - GB123456789136
-                  - GB8392848394939
             examples:
               example-1:
                 description: Check multiple EORI Numbers example
@@ -129,9 +124,6 @@ paths:
                 allOf:
                 - $ref: '#/components/schemas/Error1'
                 - description: Invalid request
-                  example:
-                    code: INVALID_REQUEST
-                    message: Invalid payload - one or more EORI numbers begin with XI. To check an EORI number that starts with XI, use the EORI checker service on the European Commission website
               example:
                 code: INVALID_REQUEST
                 message: Invalid payload - one or more EORI numbers begin with XI. To check an EORI number that starts with XI, use the EORI checker service on the European Commission website
@@ -144,9 +136,6 @@ paths:
                 allOf:
                 - $ref: '#/components/schemas/Error1'
                 - description: Internal server error
-                  example:
-                    code: INTERNAL_SERVER_ERROR
-                    message: Unknown error
               example:
                 code: INTERNAL_SERVER_ERROR
                 message: Unknown error
