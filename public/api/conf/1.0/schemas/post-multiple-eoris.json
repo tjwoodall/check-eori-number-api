@@ -1,5 +1,4 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "GB & XI EORI Checker Service",
   "description": "EIS GB & XI EORI Checker Request Service  v0.01",
   "type": "object",
