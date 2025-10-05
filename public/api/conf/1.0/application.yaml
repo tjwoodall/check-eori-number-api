@@ -40,7 +40,7 @@ info:
   contact: {}
   version: '1.0'
 servers:
-- url: https://api.service.hmrc.gov.uk/
+- url: https://api.service.hmrc.gov.uk
   variables: {}
 paths:
   /customs/eori/lookup/check-multiple-eori:
